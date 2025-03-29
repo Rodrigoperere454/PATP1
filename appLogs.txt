@@ -1,0 +1,8 @@
+mar. 19, 2025 11:03:38 DA TARDE controller.UtilizadorController fazerLogin
+INFO: Utilizador pauloo fez login com sucesso!
+mar. 19, 2025 11:17:07 DA TARDE controller.UtilizadorController fazerLogin
+INFO: Utilizador pauloo fez login com sucesso!
+mar. 19, 2025 11:17:24 DA TARDE controller.UtilizadorController fazerRegisto
+WARNING: Email inválido!
+mar. 19, 2025 11:17:25 DA TARDE controller.UtilizadorController fazerRegisto
+WARNING: Email inválido!

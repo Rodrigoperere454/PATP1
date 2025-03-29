@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PATP1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PATP1_jar</output-path>
+    <root id="archive" name="PATP1.jar">
+      <element id="module-output" name="PATP1" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Drivers/bcrypt-0.10.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Drivers/postgresql-42.7.5.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
