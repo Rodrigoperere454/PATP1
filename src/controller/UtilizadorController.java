@@ -220,7 +220,7 @@ public class UtilizadorController {
                 System.out.println("\033[32mTécnico inserido com sucesso!\033[0m");
                 Log log = new Log(tecnico.getUsername(), "Técnico " + id_utilizador + " foi registado na aplicação!");
                 controller.enviarLog(log);
-                controller.enviarNotificacao(id_utilizador, "Pedido de Registo de Conta", "tecnico1", "Gestores");
+                controller.enviarNotificacao(id_utilizador, "Pedido de Registo de Conta", "tecnico", "Gestores");
             } else {
                 System.out.println("\033[31mErro ao inserir Técnico.\033[0m");
             }
