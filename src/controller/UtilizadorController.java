@@ -8,7 +8,6 @@ import model.Certificacao;
 import model.Teste;
 import model.Log;
 import view.AppMenus;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -278,6 +277,18 @@ public class UtilizadorController {
                         break;
                     case 3:
                         alter_bd.configurarBD();
+                        break;
+                    case 4:
+                        System.out.print("Indica a porta a usar: ");
+                        int porta = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.print("Indica o host a usar: ");
+                        String host = scanner.nextLine();
+
+                        Client client = new Client(host, porta);
+                        client.enviarMensagem("<user hello>;");
+                        System.out.println("Resposta: " + client.receberMensagem());
+                        client.fechar();
                         break;
                     case 0:
                         LocalDateTime data_fim_aplicacao = LocalDateTime.now();
