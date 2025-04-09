@@ -216,7 +216,7 @@ public class UtilizadorController {
             int id_utilizador = controller.getIDbyusername(username);
 
             if (sucesso) {
-                System.out.println("\033[32mTécnico inserido com sucesso!!\033[0m");
+                System.out.println("\033[32mTécnico inserido com sucesso!\\033[0m");
                 Log log = new Log(tecnico.getUsername(), "Técnico " + id_utilizador + " foi registado na aplicação!");
                 controller.enviarLog(log);
                 controller.enviarNotificacao(id_utilizador, "Pedido de Registo de Conta", "tecnico", "Gestores");
@@ -284,12 +284,62 @@ public class UtilizadorController {
                         scanner.nextLine();
                         System.out.print("Indica o host a usar: ");
                         String host = scanner.nextLine();
-
                         Client client = new Client(host, porta);
-                        client.enviarMensagem("<user hello>;");
-                        System.out.println("Resposta: " + client.receberMensagem());
-                        client.fechar();
-                        break;
+                        System.out.println("Servidor: " + client.receberMensagem());
+                        System.out.print("================RESPONDER SERVIDOR==================\n");
+                        System.out.println("1-SIM");
+                        System.out.println("2-NÃO");
+                        int resposta = scanner.nextInt();
+                        scanner.nextLine();
+                        if (resposta == 1) {
+
+                            while (true) {
+                                String serverResponse;
+                                System.out.println("Digite a palavra 'hello' para iniciar a comunicação com o servidor.");
+                                String hello = scanner.nextLine();
+                                String helloMessage = "<" + client.getHost() + "> <" + hello + ">;";
+                                client.enviarMensagem(helloMessage);
+                                serverResponse = client.receberMensagem();
+                                System.out.println("Servidor: " + serverResponse);
+
+                                if (serverResponse.contains("<ack>")) {
+                                    break;
+                                } else {
+                                    System.out.println("Servidor não reconheceu o hello. Tentando novamente...");
+                                    client.enviarMensagem(helloMessage);
+                                }
+                            }
+                        } else {
+                            System.out.println("A sair...");
+                            System.exit(0);
+                        }
+
+                        while(true){
+                            if(!client.isConnected()){
+                                break;
+                            }
+                            menus.clientMenu();
+                            int opcao_client = scanner.nextInt();
+                            scanner.nextLine();
+                            switch (opcao_client) {
+                                case 1:
+                                    System.out.print("Username: ");
+                                    String username = scanner.nextLine();
+                                    System.out.print("Password: ");
+                                    String password = scanner.nextLine();
+                                    client.enviarMensagem("<" + client.getHost() + "> " + "<autenticar> " +"<" + username + "," + password + ">;");
+                                    break;
+                                case 2:
+
+                                    break;
+                                case 3:
+                                    client.fechar();
+                                    System.exit(0);
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida!");
+                            }
+                        }
                     case 0:
                         LocalDateTime data_fim_aplicacao = LocalDateTime.now();
                         System.out.println("A sair...");
@@ -301,6 +351,7 @@ public class UtilizadorController {
                     default:
                         System.out.println("\033[31mOpção inválida, selecione uma nova opção!\033[0m\n");
                 }
+
             } catch (InputMismatchException e) {
                 System.out.println("\033[31mOpção inválida, insira um número válido!\033[0m\n");
                 scanner.nextLine();
@@ -308,6 +359,8 @@ public class UtilizadorController {
         } while (opcao != 0);
         scanner.close();
     }
+
+
 
     /**
      * Função utilizada para mostrar o menu do utilizador consoante o tipo de utilizador que fez login.

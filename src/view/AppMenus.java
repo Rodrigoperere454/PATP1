@@ -125,6 +125,17 @@ public class AppMenus {
         System.out.print("=>");
     }
 
+    public void clientMenu(){
+        System.out.println("============== CLIENT MENU ==============");
+        System.out.println("== 1- LOGIN                             ==");
+        System.out.println("==                                      ==");
+        System.out.println("== 2- RECEIVE MESSAGE                   ==");
+        System.out.println("==                                      ==");
+        System.out.println("== 3- EXIT                              ==");
+        System.out.println("==========================================");
+        System.out.print("=>");
+    }
+
 
 
 }
