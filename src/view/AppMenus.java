@@ -86,6 +86,17 @@ public class AppMenus {
         System.out.print("=>");
     }
 
+    public void menuFabricanteCliente(){
+        System.out.println("============== MENU FABRICANTE ==============");
+        System.out.println("== 1- REGISTAR FABRICANTE                  ==");
+        System.out.println("==                                         ==");
+        System.out.println("== 2- VER INFORMAÇÃO                       ==");
+        System.out.println("==                                         ==");
+        System.out.println("== 0- SAIR                                 ==");
+        System.out.println("=============================================");
+        System.out.print("=>");
+    }
+
 
     /**
      * Função para mostrar o menu de técnico

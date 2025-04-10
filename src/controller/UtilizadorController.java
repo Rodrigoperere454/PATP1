@@ -292,10 +292,9 @@ public class UtilizadorController {
                         int resposta = scanner.nextInt();
                         scanner.nextLine();
                         if (resposta == 1) {
-
                             while (true) {
                                 String serverResponse;
-                                System.out.println("Digite a palavra 'hello' para iniciar a comunicação com o servidor.");
+                                System.out.println("DIGITE A PALAVRA 'hello' PARA INICIAR A COMUNICAÇÃO COM O SERVIDOR.");
                                 String hello = scanner.nextLine();
                                 String helloMessage = "<" + client.getHost() + "> <" + hello + ">;";
                                 client.enviarMensagem(helloMessage);
@@ -328,7 +327,36 @@ public class UtilizadorController {
                                     System.out.print("Password: ");
                                     String password = scanner.nextLine();
                                     client.enviarMensagem("<" + client.getHost() + "> " + "<autenticar> " +"<" + username + "," + password + ">;");
-                                    break;
+                                    String resposta_server = client.receberMensagem();
+                                    System.out.println("Servidor: " + resposta_server);
+                                    if(resposta_server.contains("<success>")) {
+                                        Utilizador utilizador = controller.loginUtilizador(username, password);
+                                        int opcao_fabricante = -1;
+                                        do{
+                                            menus.menuFabricanteCliente();
+                                            opcao_fabricante = scanner.nextInt();
+                                            scanner.nextLine();
+                                            switch (opcao_fabricante) {
+                                                case 1:
+                                                    System.out.println("Registar Fabricante");
+                                                    break;
+                                                case 2:
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<info>;");
+                                                    String info = client.receberMensagem();
+                                                    System.out.println("Servidor: " + info);
+                                                    break;
+                                                case 0:
+                                                    System.out.println("A sair...");
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<bye>;");
+                                                    break;
+                                            }
+
+                                        }while(opcao_fabricante != 0);
+                                    } else {
+                                        System.out.println("Erro ao autenticar utilizador.");
+                                        break;
+                                    }
+
                                 case 2:
 
                                     break;

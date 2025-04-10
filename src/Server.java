@@ -44,31 +44,50 @@ public class Server {
             System.out.println("Cliente conectado!");
             output.println(message_begin);
 
+            String clientMessage = input.readLine();
+            if (clientMessage == null) {
+                socket.close();
+                return;
+            }
 
-            String clientMessage;
-            while ((clientMessage = input.readLine()) != null) {
+            Server server = new Server();
+            String[] decodedMessage = server.decodeMessage(clientMessage);
+            server.readMessage(decodedMessage);
+
+            while (!decodedMessage[1].equals("hello")) {
+                output.println(message_begin);
+                clientMessage = input.readLine();
+                if (clientMessage == null) {
+                    socket.close();
+                    return;
+                }
+                decodedMessage = server.decodeMessage(clientMessage);
+                server.readMessage(decodedMessage);
+            }
+
+            output.println(message_acknowledge);
+
+            Fabricante fabricante = null;
+
+            while ((clientMessage = input.readLine()) != null){
                 System.out.println("Cliente: " + clientMessage);
-                Server server = new Server();
-                String[] decodedMessage = server.decodeMessage(clientMessage);
+                decodedMessage = server.decodeMessage(clientMessage);
                 server.readMessage(decodedMessage);
 
-                while (!decodedMessage[1].equals("hello")) {
-                    output.println(message_begin);
-                    clientMessage = input.readLine();
-                    if (clientMessage == null) break;
-                    decodedMessage = server.decodeMessage(clientMessage);
-                    server.readMessage(decodedMessage);
-                }
-
-                output.println(message_acknowledge);
-
-                if (decodedMessage[1].equals("autenticar")) {
-                    Utilizador utilizador = server.query.loginUtilizador(decodedMessage[2], decodedMessage[3]);
-                    if (utilizador != null) {
-                        output.println("<" + utilizador.getUsername() + "> <autenticar> <success>;");
+                if (decodedMessage[1].equals("autenticar")){
+                    System.out.println("Autenticando utilizador...");
+                    fabricante = (Fabricante) server.query.loginUtilizadorFabricanteClient(decodedMessage[2], decodedMessage[3]);
+                    if (fabricante != null && fabricante.getType().equals("fabricante")){
+                        output.println("<" + fabricante.getUsername() + "> <autenticar> <success>;");
                     } else {
                         output.println("<" + InetAddress.getLocalHost().getHostName() + "> <autenticar> <fail>;");
                     }
+                } else if (decodedMessage[1].equals("bye")){
+                    output.println("<" + InetAddress.getLocalHost().getHostName() + "> <bye>;");
+                } else if (decodedMessage[1].equals("info")){
+                    output.println("<" + InetAddress.getLocalHost().getHostName() + "> <info> <" + fabricante.getUsername() + "," + fabricante.getPassword() + "," + fabricante.getName() + "," + fabricante.getEmail() + "," + fabricante.getNif() + "," + fabricante.getTelefone() + "," + fabricante.getMorada() +
+                            ">");
+
                 }
             }
             socket.close();

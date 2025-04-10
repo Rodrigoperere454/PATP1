@@ -25,6 +25,7 @@ public class Client {
         return socket.isConnected();
     }
 
+
     public void enviarMensagem(String mensagem) {
         System.out.println("Cliente: " + mensagem);
         output.println(mensagem);

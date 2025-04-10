@@ -393,6 +393,44 @@ public class DBController {
         }
     }
 
+    public Utilizador loginUtilizadorFabricanteClient(String username, String password) {
+        String sql = "SELECT * FROM utilizadores WHERE username = ? AND password = ?";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            String hashedPassword = hashPassword(password);
+
+            stmt.setString(1, username);
+            stmt.setString(2, hashedPassword);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String nome = rs.getString("nome");
+                String email = rs.getString("email");
+                String tipo = rs.getString("tipo");
+                String estado = rs.getString("estado");
+                String nif = rs.getString("nif");
+                String telefone = rs.getString("telefone");
+                String morada = rs.getString("morada");
+                String sector_comercial = rs.getString("sector_comercial");
+                LocalDate data_inicio = rs.getDate("data_inicio").toLocalDate();
+
+                if(estado.equals("desativo")){
+                    System.out.println("\033[31mConta inativa. Por favor, contacte um gestor.\033[0m");
+                    return null;
+                }
+                return new Fabricante(nome, username, hashedPassword, email, tipo, nif, telefone, morada, sector_comercial, data_inicio);
+
+            } else {
+                System.out.println("\033[31mDados inválidos! Username ou senha incorretos.\033[0m");
+                return null;
+            }
+        } catch (Exception e) {
+            System.err.println("\033[31mErro ao logar utilizador: \033[0m" + e.getMessage());
+            return null;
+        }
+    }
+
     /**
      * Função para ativar a conta de um utilizador quando este se regista na aplicação
      * @param user_id
