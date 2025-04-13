@@ -25,6 +25,41 @@ public class Equipamento {
         this.numero_modelo = numero_modelo;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setSetor_comercial(String setor_comercial) {
+        this.setor_comercial = setor_comercial;
+    }
+
+    public void setPotencia(int potencia) {
+        this.potencia = potencia;
+    }
+
+    public void setAmperagem(int amperagem) {
+        this.amperagem = amperagem;
+    }
+
+    public void setCodigo_sku(int codigo_sku) {
+        this.codigo_sku = codigo_sku;
+    }
+
+    public void setNumero_modelo(int numero_modelo) {
+        this.numero_modelo = numero_modelo;
+    }
 
     public int getId_user() {
         return id_user;

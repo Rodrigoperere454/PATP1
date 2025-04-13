@@ -279,10 +279,10 @@ public class UtilizadorController {
                         alter_bd.configurarBD();
                         break;
                     case 4:
-                        System.out.print("Indica a porta a usar: ");
+                        System.out.print("INDICA A PORTA A UTILIZAR: ");
                         int porta = scanner.nextInt();
                         scanner.nextLine();
-                        System.out.print("Indica o host a usar: ");
+                        System.out.print("INDICA O HOST QUE DESEJA UTILIZAR: ");
                         String host = scanner.nextLine();
                         Client client = new Client(host, porta);
                         System.out.println("Servidor: " + client.receberMensagem());
@@ -305,7 +305,7 @@ public class UtilizadorController {
                                     break;
                                 } else {
                                     System.out.println("Servidor não reconheceu o hello. Tentando novamente...");
-                                    client.enviarMensagem(helloMessage);
+                                    //client.enviarMensagem(helloMessage);
                                 }
                             }
                         } else {
@@ -345,6 +345,118 @@ public class UtilizadorController {
                                                     String info = client.receberMensagem();
                                                     System.out.println("Servidor: " + info);
                                                     break;
+                                                case 3:
+                                                    System.out.println("PREENCHA OS SEGUINTES CAMPOS PARA ALTERAR OS SEUS DADOS");
+                                                    System.out.print("Nome: ");
+                                                    String nome = scanner.nextLine();
+                                                    System.out.print("Email: ");
+                                                    String email = scanner.nextLine();
+                                                    System.out.print("Password: ");
+                                                    String password_alterar = scanner.nextLine();
+                                                    System.out.print("Telefone: ");
+                                                    String telefone = scanner.nextLine();
+                                                    System.out.print("Morada: ");
+                                                    String morada = scanner.nextLine();
+                                                    System.out.print("NIF: ");
+                                                    String nif = scanner.nextLine();
+                                                    if(nome.isEmpty() || email.isEmpty() || password_alterar.isEmpty() || telefone.isEmpty() || morada.isEmpty() || nif.isEmpty() ){
+                                                        System.out.println("Preencha todos os campos!");
+                                                        break;
+                                                    }
+                                                    if(!regex.validarTelemovel(telefone)){
+                                                        System.out.println("Telemovel inválido! Tem de começar em 9, 2 ou 3 e ter 9 digitos!");
+                                                        break;
+                                                    } else if (!regex.validarEmail(email)){
+                                                        System.out.println("Email inválido!");
+                                                        break;
+                                                    }
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<update> " + "<" + nome + "," + email + "," + password_alterar + "," + telefone + "," + morada + "," + nif + ">;");
+                                                    String resposta_update = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_update);
+                                                    if(resposta_update.contains("<ok>")){
+                                                        client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                        String resposta_ack = client.receberMensagem();
+                                                        System.out.println("Servidor: " + resposta_ack);
+                                                    } else {
+                                                        System.out.println("Erro ao alterar dados!");
+                                                    }
+                                                    break;
+                                                case 4:
+                                                    System.out.println("==================ADICIONAR UM EQUIPAMENTO==================");
+                                                    System.out.print("Marca:");
+                                                    String marca = scanner.nextLine();
+                                                    System.out.print("Modelo:");
+                                                    String modelo = scanner.nextLine();
+                                                    System.out.print("Setor Comercial:");
+                                                    String sector_comercial = scanner.nextLine();
+                                                    System.out.print("Potência:");
+                                                    int potencia = scanner.nextInt();
+                                                    System.out.print("Amperagem:");
+                                                    int amaperagem = scanner.nextInt();
+                                                    System.out.print("Número de Modelo:");
+                                                    int numero_modelo = scanner.nextInt();
+
+                                                    if(marca.isEmpty() || modelo.isEmpty() || sector_comercial.isEmpty() || potencia <= 0 || amaperagem <= 0 || numero_modelo <= 0) {
+                                                        System.out.println("Preencha todos os campos!");
+                                                        break;
+                                                    }
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<inserir> " + "<equipamento> " + "<" + marca + "," + modelo + "," + sector_comercial + "," + potencia + "," + amaperagem + "," + numero_modelo + ">");
+                                                    String inserir_equip_resposta = client.receberMensagem();
+                                                    System.out.println("Servidor: " + inserir_equip_resposta);
+                                                    if(inserir_equip_resposta.contains("<ok>")){
+                                                        client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                        String resposta_ack = client.receberMensagem();
+                                                        System.out.println("Servidor: " + resposta_ack);
+                                                    } else {
+                                                        System.out.println("Erro ao adicionar equipamento!");
+                                                    }
+                                                    break;
+                                                case 5:
+                                                    System.out.println("DIGITE O CÓDIGO_SKU DO EQUIPAMENTO: ");
+                                                    String sku_equipamento = scanner.nextLine();
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<pesquisa> " + "<equipamento> " + "<" + sku_equipamento + ">;");
+                                                    String resposta_equipamento = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_equipamento);
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    String resposta_ack_equipamento = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_ack_equipamento);
+                                                    break;
+
+                                                case 6:
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<listar> <equipamento>");
+                                                    System.out.println("==========LISTA DOS MEUS EQUIPAMENTOS==========");
+                                                    String listar_equipamento = client.receberMensagem();
+                                                    System.out.println("Servidor: " + listar_equipamento);
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    String resposta_ack_listar = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_ack_listar);
+                                                    break;
+
+                                                case 7:
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<listar> <certificacao>");
+                                                    System.out.println("==========LISTA DOS MEUS PEDIDOS DE CERTIFICAÇÃO==========");
+                                                    System.out.println("Formato : <id_certificacao, id_equipamento, id_tecnico, id_fabricante, data_realizacao, tempo_decorrido, custo, estado, numero_certificacao, numero_licenca>");
+                                                    String listar_certificacao = "";
+                                                    while(!listar_certificacao.contains("<ListFinished>")){
+                                                        listar_certificacao = client.receberMensagem();
+                                                        System.out.println("Servidor: " + listar_certificacao);
+                                                    }
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    String resposta_ack_listar_certificacao = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_ack_listar_certificacao);
+                                                    break;
+                                                case 8:
+                                                    System.out.println("DIGITE O NÚMERO DA CERTIFICAÇÃO: ");
+                                                    int numero_certificacao = scanner.nextInt();
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<pesquisa> <certificacao> " + "<" + numero_certificacao + ">;");
+                                                    System.out.println("==========INFO DA CERTIFICAÇÃO==========");
+                                                    String resposta_certificacao = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_certificacao);
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    String resposta_ack_certificacao = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_ack_certificacao);
+
+                                                    break;
                                                 case 0:
                                                     System.out.println("A sair...");
                                                     client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<bye>;");
@@ -358,9 +470,6 @@ public class UtilizadorController {
                                     }
 
                                 case 2:
-
-                                    break;
-                                case 3:
                                     client.fechar();
                                     System.exit(0);
                                     break;

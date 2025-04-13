@@ -27,7 +27,7 @@ public class Client {
 
 
     public void enviarMensagem(String mensagem) {
-        System.out.println("Cliente: " + mensagem);
+        //System.out.println("Cliente: " + mensagem);
         output.println(mensagem);
     }
 

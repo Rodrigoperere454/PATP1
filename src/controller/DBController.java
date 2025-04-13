@@ -6,10 +6,8 @@ import model.Tecnico;
 import model.Certificacao;
 import model.Teste;
 import model.Log;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.security.MessageDigest;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -17,8 +15,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.util.Random;
+import java.util.*;
 
 public class DBController {
     private Connection conexao;
@@ -33,6 +30,8 @@ public class DBController {
      * @param teste
      * @return true or false
      */
+
+
     public boolean adicionarTeste(Teste teste){
         String sql = "INSERT INTO testes (id_equipamento, designacao, descricao, valor_medido) VALUES (?, ?, ?, ?)";
 
@@ -875,6 +874,71 @@ public class DBController {
         }
     }
 
+    public String[] pesquisarEquipamentosFabricanteClient(String codigo_sku, int id_fabricante) {
+        String sql = "SELECT * FROM equipamentos WHERE id_fabricante = ? AND codigo_Sku = ?";
+        String[] info_equip = null;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id_fabricante);
+
+            try {
+                long codigoSku = Long.parseLong(codigo_sku);
+                stmt.setLong(2, codigoSku);
+            } catch (NumberFormatException e) {
+                stmt.setNull(2, java.sql.Types.BIGINT);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                info_equip = new String[] {
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getString("setor_comercial"),
+                        rs.getString("potencia"),
+                        rs.getString("amperagem"),
+                        rs.getString("codigo_Sku"),
+                        rs.getString("numero_modelo"),
+                        rs.getString("data_submissao"),
+                        rs.getString("data_certeficacao"),
+                };
+            } else {
+                System.out.println("\033[31mEquipamento com a informação dada não foi encontrado!\033[0m");
+            }
+        } catch (SQLException e) {
+            System.err.println("\033[31mErro ao pesquisar equipamentos: \033[0m" + e.getMessage());
+        }
+
+        return info_equip;
+    }
+
+        public String[] pesquisarCertificacaoFabricanteClient(String numero_cert, int id_fabricante) {
+        String sql = "SELECT * FROM certificacoes WHERE id_fabricante = ? AND numero_certificacao ILIKE ?";
+        String[] info_cert = null;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id_fabricante);
+            stmt.setString(2, numero_cert);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                info_cert = new String[] {
+                        rs.getString("id_tecnico"),
+                        rs.getString("data_realizacao"),
+                        rs.getString("tempo_decorrido"),
+                        rs.getString("custo"),
+                        rs.getString("estado"),
+                };
+            } else {
+                System.out.println("\033[31mEquipamento com a informação dada não foi encontrado!\033[0m");
+            }
+        } catch (SQLException e) {
+            System.err.println("\033[31mErro ao pesquisar equipamentos: \033[0m" + e.getMessage());
+        }
+
+        return info_cert;
+    }
+
+
     /**
      * Função para listar certificações de um fabricante por ordem de data ou por ordem de id da certificação
      * @param id_fabricante
@@ -932,6 +996,66 @@ public class DBController {
             System.err.println("\033[31mErro ao listar equipamentos: \033[0m" + e.getMessage());
         }
     }
+
+    public String[] listarEquipamentosFabricanteClient(int id_fabricante){
+        String sql = "SELECT * FROM equipamentos WHERE id_fabricante = ?";
+        List<String> listaEquips = new ArrayList<>();
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id_fabricante);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                listaEquips.add(rs.getString("marca"));
+                listaEquips.add(rs.getString("modelo"));
+                listaEquips.add(rs.getString("setor_comercial"));
+                listaEquips.add(rs.getString("potencia"));
+                listaEquips.add(rs.getString("amperagem"));
+                listaEquips.add(rs.getString("codigo_Sku"));
+                listaEquips.add(rs.getString("numero_modelo"));
+                listaEquips.add(rs.getString("data_submissao"));
+                listaEquips.add(rs.getString("data_certeficacao"));
+            }
+        } catch (SQLException e) {
+            System.err.println("\033[31mErro ao listar equipamentos: \033[0m" + e.getMessage());
+        }
+        String[] ListaEquipamento = new String[listaEquips.size()];
+        listaEquips.toArray(ListaEquipamento);
+
+        return ListaEquipamento;
+    }
+
+    public String[] listarCertificacoesFabricanteClient(int id_fabricante){
+        String sql = "SELECT * FROM certificacoes WHERE id_fabricante = ?";
+        List<String> listaCert = new ArrayList<>();
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id_fabricante);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                listaCert.add(rs.getString("id_certificacao"));
+                listaCert.add(rs.getString("id_equipamento"));
+                listaCert.add(rs.getString("id_tecnico"));
+                listaCert.add(rs.getString("id_fabricante"));
+                listaCert.add(rs.getString("data_realizacao"));
+                listaCert.add(rs.getString("tempo_decorrido"));
+                listaCert.add(rs.getString("custo"));
+                listaCert.add(rs.getString("estado"));
+                listaCert.add(rs.getString("numero_certificacao"));
+                listaCert.add(rs.getString("numero_licenca"));
+            }
+        } catch (SQLException e) {
+            System.err.println("\033[31mErro ao listar certificacoes: \033[0m" + e.getMessage());
+        }
+        String[] ListaCertificacoes = new String[listaCert.size()];
+        listaCert.toArray(ListaCertificacoes);
+
+        return ListaCertificacoes;
+    }
+
+
+
 
 
     /**
@@ -1374,6 +1498,53 @@ public class DBController {
         return campo;
     }
 
+
+    public boolean alterarDadosClient(String $nome, String $email, String $pass,   String $telefone, String $morada, String $nif, int id_utilizador) {
+        String sql = "UPDATE utilizadores SET password = ?, nome = ?, email = ?, nif = ?, telefone = ?, morada = ? WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, $pass);
+            stmt.setString(2, $nome);
+            stmt.setString(3, $email);
+            stmt.setString(4, $nif);
+            stmt.setString(5, $telefone);
+            stmt.setString(6, $morada);
+            stmt.setInt(7, id_utilizador);
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("\033[31mErro ao alterar dados: \033[0m" + e.getMessage());
+            return false;
+        }
+    }
+
+    public String[] buscarDadosFabricanteClient(int id_fabricante){
+        String sql = "SELECT * FROM utilizadores WHERE id = ?";
+        String[] info_fabricante = null;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id_fabricante);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                info_fabricante = new String[] {
+                        rs.getString("nome"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("nif"),
+                        rs.getString("telefone"),
+                        rs.getString("morada"),
+                        rs.getString("sector_comercial"),
+                        rs.getString("data_inicio")
+                };
+            } else {
+                System.out.println("\033[31mFabricante com a informação dada não foi encontrado!\033[0m");
+            }
+        } catch (SQLException e) {
+            System.err.println("\033[31mErro ao buscar dados do fabricante: \033[0m" + e.getMessage());
+        }
+
+        return info_fabricante;
+    }
     /**
      * Função para alterar o campo escolhido de um utilizador.
      * @param campo

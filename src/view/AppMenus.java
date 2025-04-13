@@ -87,16 +87,27 @@ public class AppMenus {
     }
 
     public void menuFabricanteCliente(){
-        System.out.println("============== MENU FABRICANTE ==============");
-        System.out.println("== 1- REGISTAR FABRICANTE                  ==");
-        System.out.println("==                                         ==");
-        System.out.println("== 2- VER INFORMAÇÃO                       ==");
-        System.out.println("==                                         ==");
-        System.out.println("== 0- SAIR                                 ==");
-        System.out.println("=============================================");
-        System.out.print("=>");
+        System.out.println("============== MENU FABRICANTE CLIENT ==============");
+        System.out.println("== 1- REGISTAR FABRICANTE                         ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 2- VER INFORMAÇÃO                              ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 3- ALTERAR DADOS PRÓPRIOS                      ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 4- ADICIONAR EQUIPAMENTO                       ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 5- VER INFO DE UM EQUIPAMENTO                  ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 6- LISTAR MEUS EQUIPAMENTOS                    ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 7- LISTAR MEUS PEDIDOS DE CERTIFICAÇÃO         ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 8- VER INFO DE UMA CERTIFICACAO                ==");
+        System.out.println("==                                                ==");
+        System.out.println("== 0- SAIR                                        ==");
+        System.out.println("====================================================");
+        System.out.print("FACRICANTE (CLIENT)=>");
     }
-
 
     /**
      * Função para mostrar o menu de técnico
@@ -137,12 +148,10 @@ public class AppMenus {
     }
 
     public void clientMenu(){
-        System.out.println("============== CLIENT MENU ==============");
+        System.out.println("============== CLIENT MENU ===============");
         System.out.println("== 1- LOGIN                             ==");
         System.out.println("==                                      ==");
-        System.out.println("== 2- RECEIVE MESSAGE                   ==");
-        System.out.println("==                                      ==");
-        System.out.println("== 3- EXIT                              ==");
+        System.out.println("== 2- EXIT                              ==");
         System.out.println("==========================================");
         System.out.print("=>");
     }
