@@ -1,29 +1,17 @@
 package controller;
 
 import model.Fabricante;
-import model.Tecnico;
 import model.Utilizador;
-import model.Equipamento;
-import model.Certificacao;
-import model.Teste;
 import model.Log;
 import view.AppMenus;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
-import java.util.Properties;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 
 public class UtilizadorController {
