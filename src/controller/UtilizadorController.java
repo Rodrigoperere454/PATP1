@@ -111,7 +111,7 @@ public class UtilizadorController {
         LocalDate data_inicio = LocalDate.now();
 
         Fabricante fabricante = new Fabricante(nome, username, hashedPassword, email, "fabricante", nif, telefone, morada, sector_comercial, data_inicio);
-        boolean sucesso = controller.inserirFabricante(fabricante);
+        boolean sucesso = controller.inserirFabricanteClient(fabricante);
 
         if (sucesso) {
             int id_utilizador = controller.getIDbyusername(username);
@@ -208,7 +208,41 @@ public class UtilizadorController {
                                             scanner.nextLine();
                                             switch (opcao_fabricante) {
                                                 case 1:
-                                                    System.out.println("Registar Fabricante");
+                                                    System.out.println("=================NOVO FABRICANTE=================");
+                                                    System.out.print("Nome: ");
+                                                    String nome_fabricante = scanner.nextLine();
+                                                    System.out.print("Username: ");
+                                                    String username_fabricante = scanner.nextLine();
+                                                    System.out.print("Password: ");
+                                                    String password_fabricante = scanner.nextLine();
+                                                    String hashedPassword_fabricante = controller.hashPassword(password_fabricante);
+                                                    System.out.print("Email: ");
+                                                    String email_fabricante = scanner.nextLine();
+                                                    System.out.print("NIF: ");
+                                                    String nif_fabricante = scanner.nextLine();
+                                                    System.out.print("Telefone: ");
+                                                    String telefone_fabricante = scanner.nextLine();
+                                                    System.out.print("Morada: ");
+                                                    String morada_fabricante = scanner.nextLine();
+                                                    System.out.print("Sector Comercial: ");
+                                                    String sector_comercial_fabricante = scanner.nextLine();
+
+                                                    if(nome_fabricante.isEmpty() || username_fabricante.isEmpty() || password_fabricante.isEmpty() || email_fabricante.isEmpty() || nif_fabricante.isEmpty() || telefone_fabricante.isEmpty() || morada_fabricante.isEmpty() || sector_comercial_fabricante.isEmpty()){
+                                                        System.out.println("Preencha todos os campos!");
+                                                        break;
+                                                    }
+
+                                                    if(!regex.validarTelemovel(telefone_fabricante)){
+                                                        System.out.println("Telemovel inválido! Tem de começar em 9, 2 ou 3 e ter 9 digitos!");
+                                                        break;
+                                                    } else if (!regex.validarEmail(email_fabricante)){
+                                                        System.out.println("Email inválido!");
+                                                        break;
+                                                    }
+                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<registar> " + "<fabricante> " + "<" + nome_fabricante + "," + username_fabricante + "," + hashedPassword_fabricante + "," + email_fabricante + "," + nif_fabricante + "," + telefone_fabricante + "," + morada_fabricante + "," + sector_comercial_fabricante + ">;");
+                                                    String resposta_registo_fabricante = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_registo_fabricante);
+
                                                     break;
                                                 case 2:
                                                     client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<info>;");

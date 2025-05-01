@@ -6,6 +6,7 @@ import java.sql.Connection;
 import model.*;
 import controller.*;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -178,6 +179,14 @@ public class Server {
                     System.out.println("Cliente: " + clientMessage);
                     output.println("<" + InetAddress.getLocalHost().getHostName() + "> <ack>;");
 
+                }else if (decodedMessage[1].equals("registar")){
+                    fabricante = new Fabricante(decodedMessage[3], decodedMessage[4], decodedMessage[5], decodedMessage[6], "fabricante", decodedMessage[7], decodedMessage[8], decodedMessage[9], decodedMessage[10], LocalDate.now());
+                    boolean registo_sucesso = query.inserirFabricanteClient(fabricante);
+                    if (registo_sucesso) {
+                        output.println("<" + InetAddress.getLocalHost().getHostName() + "> <registar> <ok>;");
+                    } else {
+                        output.println("<" + InetAddress.getLocalHost().getHostName() + "> <registar> <fail>;");
+                    }
                 }
             }
             socket.close();

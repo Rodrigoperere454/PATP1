@@ -321,21 +321,22 @@ public class DBController {
      * @param fabricante
      * @return true or false
      */
-    public boolean inserirFabricante(Fabricante fabricante) {
-        String sql = "INSERT INTO utilizadores (nome, username, password, email, tipo, nif, telefone, morada, sector_comercial, data_inicio) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+    public boolean inserirFabricanteClient(Fabricante fabricante) {
+        String sql = "INSERT INTO utilizadores (nome, username, password,estado, email, tipo, nif, telefone, morada, sector_comercial, data_inicio) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, fabricante.getName());
             stmt.setString(2, fabricante.getUsername());
             stmt.setString(3, fabricante.getPassword());
-            stmt.setString(4, fabricante.getEmail());
-            stmt.setString(5, fabricante.getType());
-            stmt.setString(6, fabricante.getNif());
-            stmt.setString(7, fabricante.getTelefone());
-            stmt.setString(8, fabricante.getMorada());
-            stmt.setString(9, fabricante.getSector_comercial());
-            stmt.setDate(10, java.sql.Date.valueOf(fabricante.getData()));
+            stmt.setString(4, "ativo");
+            stmt.setString(5, fabricante.getEmail());
+            stmt.setString(6, fabricante.getType());
+            stmt.setString(7, fabricante.getNif());
+            stmt.setString(8, fabricante.getTelefone());
+            stmt.setString(9, fabricante.getMorada());
+            stmt.setString(10, fabricante.getSector_comercial());
+            stmt.setDate(11, java.sql.Date.valueOf(fabricante.getData()));
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

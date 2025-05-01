@@ -6,13 +6,13 @@ public class AppMenus {
      * Função para mostrar o menu inicial
      */
     public void menuInicial(){
-        System.out.println("============= MENU INICIAL ============");
-        System.out.println("== 1- LOGIN DE UTILIZADOR            ==");
-        System.out.println("== 2- REGISTAR UTILIZADOR            ==");
-        System.out.println("== 3- ALTERAR DADOS DA BASE DE DADOS ==");
-        System.out.println("== 4- ENTRAR EM MODO SERVIDOR        ==");
-        System.out.println("== 0- SAIR                           ==");
-        System.out.println("=======================================");
+        System.out.println("=============== MENU INICIAL ==============");
+        System.out.println("== 1- LOGIN DE UTILIZADOR                ==");
+        System.out.println("== 2- REGISTAR UTILIZADOR                ==");
+        System.out.println("== 3- ALTERAR DADOS DA BASE DE DADOS     ==");
+        System.out.println("== 4- CONECTAR COM O SERVIDOR            ==");
+        System.out.println("== 0- SAIR                               ==");
+        System.out.println("===========================================");
         System.out.print("=>");
     }
 
