@@ -89,6 +89,7 @@ public class Server {
                     }
                 } else if (decodedMessage[1].equals("bye")) {
                     output.println("<" + InetAddress.getLocalHost().getHostName() + "> <bye>;");
+                    serverSocket.close();
                 } else if (decodedMessage[1].equals("info")) {
                     int id_fabricante = query.getIDbyusername(fabricante.getUsername());
                     String[] info = query.buscarDadosFabricanteClient(id_fabricante);

@@ -26,6 +26,7 @@ public class UtilizadorController {
 
 
 
+
     /**
      * Função utilizada para calcular o tempo de execução durante o uso aplicação
      * @param data_inicio_aplicacao
@@ -352,6 +353,9 @@ public class UtilizadorController {
                                                 case 0:
                                                     System.out.println("A sair...");
                                                     client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<bye>;");
+                                                    String resposta_bye = client.receberMensagem();
+                                                    System.out.println("Servidor: " + resposta_bye);
+                                                    client.fechar();
                                                     break;
                                             }
 
