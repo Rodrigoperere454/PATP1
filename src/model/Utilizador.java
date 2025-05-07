@@ -16,10 +16,10 @@ public class Utilizador {
         this.type = type;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -27,7 +27,6 @@ public class Utilizador {
     public String getUsername() {
         return username;
     }
-
 
     public String getEmail() {
         return email;
@@ -37,8 +36,5 @@ public class Utilizador {
         return type;
     }
 
-
     public String getPassword() { return password; }
-
-
 }

@@ -27,6 +27,7 @@ public class UtilizadorController {
 
     /**
      * Função utilizada para calcular o tempo de execução durante o uso aplicação
+     *
      * @param data_inicio_aplicacao
      * @param dia_semana
      * @param data_fim_aplicacao
@@ -49,6 +50,7 @@ public class UtilizadorController {
     /**
      * Função utilizada para realizar o registo de um utilizador, onde é pedido o nome, username, password, email e tipo de utilizador.
      * Consoante o tipo de utilizador, é pedido informação adicional, como o NIF, telefone, morada, sector comercial, área de especialização e nível de especialização.
+     *
      * @throws Exception
      */
     public void fazerRegistoFabricante() throws Exception {
@@ -112,6 +114,7 @@ public class UtilizadorController {
 
     /**
      * Função utilizada para mostrar o menu inicial da aplicação, onde o utilizador pode fazer login, registo ou sair da aplicação.
+     *
      * @throws Exception
      */
     public void menuInicial() throws Exception {
@@ -170,8 +173,8 @@ public class UtilizadorController {
                             System.exit(0);
                         }
 
-                        while(true){
-                            if(!client.isConnected()){
+                        while (true) {
+                            if (!client.isConnected()) {
                                 break;
                             }
                             menus.clientMenu();
@@ -183,13 +186,13 @@ public class UtilizadorController {
                                     String username = scanner.nextLine();
                                     System.out.print("Password: ");
                                     String password = scanner.nextLine();
-                                    client.enviarMensagem("<" + client.getHost() + "> " + "<autenticar> " +"<" + username + "," + password + ">;");
+                                    client.enviarMensagem("<" + client.getHost() + "> " + "<autenticar> " + "<" + username + "," + password + ">;");
                                     String resposta_server = client.receberMensagem();
                                     System.out.println("Servidor: " + resposta_server);
-                                    if(resposta_server.contains("<success>")) {
+                                    if (resposta_server.contains("<success>")) {
                                         Utilizador utilizador = controller.loginUtilizador(username, password);
                                         int opcao_fabricante = -1;
-                                        do{
+                                        do {
                                             menus.menuFabricanteCliente();
                                             opcao_fabricante = scanner.nextInt();
                                             scanner.nextLine();
@@ -214,15 +217,15 @@ public class UtilizadorController {
                                                     System.out.print("Sector Comercial: ");
                                                     String sector_comercial_fabricante = scanner.nextLine();
 
-                                                    if(nome_fabricante.isEmpty() || username_fabricante.isEmpty() || password_fabricante.isEmpty() || email_fabricante.isEmpty() || nif_fabricante.isEmpty() || telefone_fabricante.isEmpty() || morada_fabricante.isEmpty() || sector_comercial_fabricante.isEmpty()){
+                                                    if (nome_fabricante.isEmpty() || username_fabricante.isEmpty() || password_fabricante.isEmpty() || email_fabricante.isEmpty() || nif_fabricante.isEmpty() || telefone_fabricante.isEmpty() || morada_fabricante.isEmpty() || sector_comercial_fabricante.isEmpty()) {
                                                         System.out.println("Preencha todos os campos!");
                                                         break;
                                                     }
 
-                                                    if(!regex.validarTelemovel(telefone_fabricante)){
+                                                    if (!regex.validarTelemovel(telefone_fabricante)) {
                                                         System.out.println("Telemovel inválido! Tem de começar em 9, 2 ou 3 e ter 9 digitos!");
                                                         break;
-                                                    } else if (!regex.validarEmail(email_fabricante)){
+                                                    } else if (!regex.validarEmail(email_fabricante)) {
                                                         System.out.println("Email inválido!");
                                                         break;
                                                     }
@@ -250,21 +253,21 @@ public class UtilizadorController {
                                                     String morada = scanner.nextLine();
                                                     System.out.print("NIF: ");
                                                     String nif = scanner.nextLine();
-                                                    if(nome.isEmpty() || email.isEmpty() || password_alterar.isEmpty() || telefone.isEmpty() || morada.isEmpty() || nif.isEmpty() ){
+                                                    if (nome.isEmpty() || email.isEmpty() || password_alterar.isEmpty() || telefone.isEmpty() || morada.isEmpty() || nif.isEmpty()) {
                                                         System.out.println("Preencha todos os campos!");
                                                         break;
                                                     }
-                                                    if(!regex.validarTelemovel(telefone)){
+                                                    if (!regex.validarTelemovel(telefone)) {
                                                         System.out.println("Telemovel inválido! Tem de começar em 9, 2 ou 3 e ter 9 digitos!");
                                                         break;
-                                                    } else if (!regex.validarEmail(email)){
+                                                    } else if (!regex.validarEmail(email)) {
                                                         System.out.println("Email inválido!");
                                                         break;
                                                     }
                                                     client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<update> " + "<" + nome + "," + email + "," + password_alterar + "," + telefone + "," + morada + "," + nif + ">;");
                                                     String resposta_update = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_update);
-                                                    if(resposta_update.contains("<ok>")){
+                                                    if (resposta_update.contains("<ok>")) {
                                                         client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
                                                         String resposta_ack = client.receberMensagem();
                                                         System.out.println("Servidor: " + resposta_ack);
@@ -287,14 +290,14 @@ public class UtilizadorController {
                                                     System.out.print("Número de Modelo:");
                                                     int numero_modelo = scanner.nextInt();
 
-                                                    if(marca.isEmpty() || modelo.isEmpty() || sector_comercial.isEmpty() || potencia <= 0 || amaperagem <= 0 || numero_modelo <= 0) {
+                                                    if (marca.isEmpty() || modelo.isEmpty() || sector_comercial.isEmpty() || potencia <= 0 || amaperagem <= 0 || numero_modelo <= 0) {
                                                         System.out.println("Preencha todos os campos!");
                                                         break;
                                                     }
                                                     client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<inserir> " + "<equipamento> " + "<" + marca + "," + modelo + "," + sector_comercial + "," + potencia + "," + amaperagem + "," + numero_modelo + ">");
                                                     String inserir_equip_resposta = client.receberMensagem();
                                                     System.out.println("Servidor: " + inserir_equip_resposta);
-                                                    if(inserir_equip_resposta.contains("<ok>")){
+                                                    if (inserir_equip_resposta.contains("<ok>")) {
                                                         client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
                                                         String resposta_ack = client.receberMensagem();
                                                         System.out.println("Servidor: " + resposta_ack);
@@ -328,7 +331,7 @@ public class UtilizadorController {
                                                     System.out.println("==========LISTA DOS MEUS PEDIDOS DE CERTIFICAÇÃO==========");
                                                     System.out.println("Formato : <id_certificacao, id_equipamento, id_tecnico, id_fabricante, data_realizacao, tempo_decorrido, custo, estado, numero_certificacao, numero_licenca>");
                                                     String listar_certificacao = "";
-                                                    while(!listar_certificacao.contains("<ListFinished>")){
+                                                    while (!listar_certificacao.contains("<ListFinished>")) {
                                                         listar_certificacao = client.receberMensagem();
                                                         System.out.println("Servidor: " + listar_certificacao);
                                                     }
@@ -357,7 +360,7 @@ public class UtilizadorController {
                                                     break;
                                             }
 
-                                        }while(opcao_fabricante != 0);
+                                        } while (opcao_fabricante != 0);
                                     } else {
                                         System.out.println("Erro ao autenticar utilizador.");
                                         break;
@@ -374,7 +377,7 @@ public class UtilizadorController {
                     case 0:
                         LocalDateTime data_fim_aplicacao = LocalDateTime.now();
                         System.out.println("A sair...");
-                        Log log = new Log( "Sistema", "Utilizador saiu da aplicação!");
+                        Log log = new Log("Sistema", "Utilizador saiu da aplicação!");
                         calcularExecucao(data_inicio_aplicacao, dia_semana, data_fim_aplicacao);
                         System.exit(0);
                         break;
@@ -389,6 +392,5 @@ public class UtilizadorController {
         } while (opcao != 0);
         scanner.close();
     }
-
-    }
+}
 

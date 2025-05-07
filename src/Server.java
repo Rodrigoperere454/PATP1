@@ -11,17 +11,32 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe Server
+ * Esta classe representa um servidor que aceita conexões de clientes e processa mensagens.
+ */
 public class Server {
 
+    /**
+     * Método para decodificar uma mensagem recebida do cliente.
+     * Remove caracteres especiais e divide a mensagem em partes.
+     *
+     * @param message A mensagem recebida
+     * @return Um array de strings contendo as partes da mensagem decodificada
+     */
     public static String[] decodeMessage(String message) {
         message = message.replaceAll("[<>;]", "");
         message = message.replaceAll(",", " ");
         String[] decoded = message.split(" ");
 
         return decoded;
-
     }
 
+    /**
+     * Método para ler e imprimir a mensagem decodificada.
+     *
+     * @param decodedMessage O array de strings contendo a mensagem decodificada
+     */
     public static void readMessage(String[] decodedMessage) {
         for (int i = 0; i < Array.getLength(decodedMessage); i++) {
             System.out.print("Decoded messsage:");
@@ -29,6 +44,13 @@ public class Server {
         }
     }
 
+    /**
+     * Método principal que inicia o servidor e aguarda conexões de clientes.
+     * Quando um cliente se conecta, ele processa as mensagens recebidas.
+     *
+     * @param args Argumentos da linha de comando
+     * @throws Exception Se ocorrer um erro durante a execução
+     */
     public static void main(String[] args) throws Exception {
         int port = 1234;
         Connection conexao = DBconfig.getConnection();
@@ -194,6 +216,5 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

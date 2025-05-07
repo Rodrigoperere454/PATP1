@@ -3,6 +3,11 @@ package controller;
 import java.io.*;
 import java.net.*;
 
+/**
+ * Classe Client
+ * Esta classe representa um cliente que se conecta a um servidor.
+ * Ela permite enviar e receber mensagens do servidor.
+ */
 public class Client {
 
     private Socket socket;
@@ -34,6 +39,11 @@ public class Client {
         return input.readLine();
     }
 
+    /**
+     * Método para receber uma mensagem do servidor
+     * @return A mensagem recebida
+     * @throws IOException Se ocorrer um erro de entrada/saída
+     */
     public void fechar() throws IOException {
         socket.close();
         System.out.println("Conexão encerrada.");

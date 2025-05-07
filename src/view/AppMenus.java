@@ -17,7 +17,9 @@ public class AppMenus {
     }
 
 
-
+    /**
+     * Função para mostrar o menu de utilizador
+     */
     public void menuFabricanteCliente(){
         System.out.println("============== MENU FABRICANTE CLIENT ==============");
         System.out.println("== 1- REGISTAR FABRICANTE                         ==");
@@ -41,7 +43,9 @@ public class AppMenus {
         System.out.print("FACRICANTE (CLIENT)=>");
     }
 
-
+    /**
+     * Função para mostrar o menu de utilizador
+     */
     public void clientMenu(){
         System.out.println("============== CLIENT MENU ===============");
         System.out.println("== 1- LOGIN                             ==");
@@ -50,7 +54,4 @@ public class AppMenus {
         System.out.println("==========================================");
         System.out.print("=>");
     }
-
-
-
 }
