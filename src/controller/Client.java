@@ -41,7 +41,6 @@ public class Client {
 
     /**
      * Método para receber uma mensagem do servidor
-     * @return A mensagem recebida
      * @throws IOException Se ocorrer um erro de entrada/saída
      */
     public void fechar() throws IOException {
