@@ -25,8 +25,6 @@ public class UtilizadorController {
     private RegexValidations regex = new RegexValidations();
 
 
-
-
     /**
      * Função utilizada para calcular o tempo de execução durante o uso aplicação
      * @param data_inicio_aplicacao
