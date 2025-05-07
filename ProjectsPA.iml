@@ -13,7 +13,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Trabalho prático/Drivers/bcrypt-0.10.2.jar!/" />
+          <root url="jar://$USER_HOME$/Trabalho prático/Drivers/bcrypt-0.10.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -22,12 +22,13 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Trabalho prático/Drivers/spring-security-core-6.4.3.jar!/" />
+          <root url="jar://$USER_HOME$/Trabalho prático/Drivers/spring-security-core-6.4.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="library" name="postgresql-42.7.7" level="project" />
+    <orderEntry type="library" name="postgresql-42.7.9" level="project" />
   </component>
 </module>
