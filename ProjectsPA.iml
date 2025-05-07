@@ -7,28 +7,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="postgresql-42.7.6" level="project" />
-    <orderEntry type="library" name="bcrypt-0.10.2-javadoc" level="project" />
-    <orderEntry type="library" exported="" name="bcrypt-0.10.2" level="project" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Trabalho prático/Drivers/bcrypt-0.10.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Trabalho prático/Drivers/spring-security-core-6.4.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="postgresql-42.7.7" level="project" />
-    <orderEntry type="library" name="postgresql-42.7.9" level="project" />
   </component>
 </module>

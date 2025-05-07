@@ -1,10 +1,12 @@
 import controller.DBconfig;
 import controller.UtilizadorController;
+
 import java.sql.Connection;
 
 public class Main {
     /**
      * Função principal, verifica a conexão com a base de dados e inicia o programa
+     *
      * @param args
      */
     public static void main(String[] args) throws Exception {
