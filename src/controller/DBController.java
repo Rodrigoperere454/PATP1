@@ -108,47 +108,6 @@ public class DBController {
 
 
 
-
-    /**
-     * Função para validar o login do utilizador através do username e password. Verifica se existe alguem na base de dados com os dados inseridos. Se existir
-     * Devolve um objeto "utilizador" com os dados do utilizador.
-     * @param username
-     * @param password
-     * @return
-     */
-    public Utilizador loginUtilizador(String username, String password) {
-        String sql = "SELECT * FROM utilizadores WHERE username = ? AND password = ?";
-
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            String hashedPassword = hashPassword(password);
-
-            stmt.setString(1, username);
-            stmt.setString(2, hashedPassword);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                String nome = rs.getString("nome");
-                String email = rs.getString("email");
-                String tipo = rs.getString("tipo");
-                String estado = rs.getString("estado");
-
-                if(estado.equals("desativo")){
-                    System.out.println("\033[31mConta inativa. Por favor, contacte um gestor.\033[0m");
-                    return null;
-                }
-                return new Utilizador(nome, username, hashedPassword, email, tipo);
-
-            } else {
-                System.out.println("\033[31mDados inválidos! Username ou senha incorretos.\033[0m");
-                return null;
-            }
-        } catch (Exception e) {
-            System.err.println("\033[31mErro ao logar utilizador: \033[0m" + e.getMessage());
-            return null;
-        }
-    }
-
     /**
      * Função para validar o login do utilizador através do username e password. Verifica se existe alguem na base de dados com os dados inseridos. Se existir
      * @param username
@@ -194,7 +153,12 @@ public class DBController {
     }
 
 
-
+    /**
+     * Função para pesquisar um equipamento de um fabricante através de um código SKU e id do fabricante fornecido.
+     * @param codigo_sku
+     * @param id_fabricante
+     * @return um array com equipamentos
+     */
     public String[] pesquisarEquipamentosFabricanteClient(String codigo_sku, int id_fabricante) {
         String sql = "SELECT * FROM equipamentos WHERE id_fabricante = ? AND codigo_Sku = ?";
         String[] info_equip = null;
@@ -232,7 +196,14 @@ public class DBController {
         return info_equip;
     }
 
-        public String[] pesquisarCertificacaoFabricanteClient(String numero_cert, int id_fabricante) {
+
+    /**
+     * Função para pesquisar uma certificação de um fabricante através de um número de certificação e id do fabricante fornecido.
+     * @param numero_cert
+     * @param id_fabricante
+     * @return um array com as certificações
+     */
+    public String[] pesquisarCertificacaoFabricanteClient(String numero_cert, int id_fabricante) {
         String sql = "SELECT * FROM certificacoes WHERE id_fabricante = ? AND numero_certificacao ILIKE ?";
         String[] info_cert = null;
 
@@ -260,9 +231,11 @@ public class DBController {
     }
 
 
-
-
-
+    /**
+     * Função para listar todos os equipamentos de um fabricante. Recebe o id do fabricante..
+     * @param id_fabricante
+     * @return um array com os equipamentos
+     */
     public String[] listarEquipamentosFabricanteClient(int id_fabricante){
         String sql = "SELECT * FROM equipamentos WHERE id_fabricante = ?";
         List<String> listaEquips = new ArrayList<>();
@@ -291,6 +264,11 @@ public class DBController {
         return ListaEquipamento;
     }
 
+    /**
+     * Função para listar todas as certificações de um fabricante. Recebe o id do fabricante.
+     * @param id_fabricante
+     * @return um array com as certificações
+     */
     public String[] listarCertificacoesFabricanteClient(int id_fabricante){
         String sql = "SELECT * FROM certificacoes WHERE id_fabricante = ?";
         List<String> listaCert = new ArrayList<>();
@@ -357,7 +335,17 @@ public class DBController {
     }
 
 
-
+    /**
+     * Função para alterar os dados de um cliente. Recebe o id do utilizador e os novos dados.
+     * @param $nome
+     * @param $email
+     * @param $pass
+     * @param $telefone
+     * @param $morada
+     * @param $nif
+     * @param id_utilizador
+     * @return true or false
+     */
     public boolean alterarDadosClient(String $nome, String $email, String $pass,   String $telefone, String $morada, String $nif, int id_utilizador) {
         String sql = "UPDATE utilizadores SET password = ?, nome = ?, email = ?, nif = ?, telefone = ?, morada = ? WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -377,6 +365,11 @@ public class DBController {
         }
     }
 
+    /**
+     * Função para buscar os dados de um fabricante através do id do fabricante.
+     * @param id_fabricante
+     * @return um array com os dados do fabricante
+     */
     public String[] buscarDadosFabricanteClient(int id_fabricante){
         String sql = "SELECT * FROM utilizadores WHERE id = ?";
         String[] info_fabricante = null;

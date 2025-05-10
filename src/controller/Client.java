@@ -22,19 +22,36 @@ public class Client {
         this.consoleOutput = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    /**
+     * Método para obter o nome do host do ip do cliente
+     * @return o none do host
+     * @throws UnknownHostException Se o endereço IP não for conhecido
+     */
     public String getHost() throws UnknownHostException {
         return InetAddress.getLocalHost().getHostName();
     }
 
+    /**
+     * Método que verifica se o cliente está conectado ao servidor
+     * @return true se o cliente estiver conectado, false caso contrário
+     */
     public boolean isConnected() {
         return socket.isConnected();
     }
 
-
+    /**
+     * Método para enviar uma mensagem para o servidor
+     * @param mensagem
+     */
     public void enviarMensagem(String mensagem) {
         output.println(mensagem);
     }
 
+    /**
+     * Método para receber uma mensagem do servidor
+     * @return
+     * @throws IOException
+     */
     public String receberMensagem() throws IOException {
         return input.readLine();
     }

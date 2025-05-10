@@ -165,7 +165,6 @@ public class UtilizadorController {
                                     break;
                                 } else {
                                     System.out.println("Servidor não reconheceu o hello. Tentando novamente...");
-                                    //client.enviarMensagem(helloMessage);
                                 }
                             }
                         } else {
