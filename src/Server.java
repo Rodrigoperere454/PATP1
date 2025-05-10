@@ -19,7 +19,7 @@ public class Server {
 
     /**
      * Método para decodificar uma mensagem recebida do cliente.
-     * Remove caracteres especiais e divide a mensagem em partes.
+     * Remove caracteres especiais e divide a mensagem em partes e armazena em um array.
      *
      * @param message A mensagem recebida
      * @return Um array de strings contendo as partes da mensagem decodificada
@@ -45,8 +45,10 @@ public class Server {
     }
 
     /**
-     * Método principal que inicia o servidor e aguarda conexões de clientes.
-     * Quando um cliente se conecta, ele processa as mensagens recebidas.
+     * Método principal que inicia o servidor e espera a conexão de um cliente.
+     * Quando um cliente se conecta ao servidor, tem acesso a diversas opções, é após escolher uma destas opções que
+     * vai ser enviado para o servidor a mensagem correspondente.
+     * Este método trata esse envio de mensagens-
      *
      * @param args Argumentos da linha de comando
      * @throws Exception Se ocorrer um erro durante a execução
@@ -103,7 +105,7 @@ public class Server {
 
                 if (decodedMessage[1].equals("autenticar")) {
                     System.out.println("Autenticando utilizador...");
-                    fabricante = (Fabricante) query.loginUtilizadorFabricanteClient(decodedMessage[2], decodedMessage[3]);
+                    fabricante = query.loginUtilizadorFabricanteClient(decodedMessage[2], decodedMessage[3]);
                     if (fabricante != null && fabricante.getType().equals("fabricante")) {
                         output.println("<" + fabricante.getUsername() + "> <autenticar> <success>;");
                     } else {

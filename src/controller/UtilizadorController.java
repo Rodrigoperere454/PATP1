@@ -190,7 +190,7 @@ public class UtilizadorController {
                                     String resposta_server = client.receberMensagem();
                                     System.out.println("Servidor: " + resposta_server);
                                     if (resposta_server.contains("<success>")) {
-                                        Utilizador utilizador = controller.loginUtilizador(username, password);
+                                        Fabricante fabricante = controller.loginUtilizadorFabricanteClient(username, password);
                                         int opcao_fabricante = -1;
                                         do {
                                             menus.menuFabricanteCliente();
@@ -217,6 +217,7 @@ public class UtilizadorController {
                                                     System.out.print("Sector Comercial: ");
                                                     String sector_comercial_fabricante = scanner.nextLine();
 
+
                                                     if (nome_fabricante.isEmpty() || username_fabricante.isEmpty() || password_fabricante.isEmpty() || email_fabricante.isEmpty() || nif_fabricante.isEmpty() || telefone_fabricante.isEmpty() || morada_fabricante.isEmpty() || sector_comercial_fabricante.isEmpty()) {
                                                         System.out.println("Preencha todos os campos!");
                                                         break;
@@ -229,13 +230,13 @@ public class UtilizadorController {
                                                         System.out.println("Email inválido!");
                                                         break;
                                                     }
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<registar> " + "<fabricante> " + "<" + nome_fabricante + "," + username_fabricante + "," + hashedPassword_fabricante + "," + email_fabricante + "," + nif_fabricante + "," + telefone_fabricante + "," + morada_fabricante + "," + sector_comercial_fabricante + ">;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<registar> " + "<fabricante> " + "<" + nome_fabricante + "," + username_fabricante + "," + hashedPassword_fabricante + "," + email_fabricante + "," + nif_fabricante + "," + telefone_fabricante + "," + morada_fabricante + "," + sector_comercial_fabricante + ">;");
                                                     String resposta_registo_fabricante = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_registo_fabricante);
 
                                                     break;
                                                 case 2:
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<info>;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<info>;");
                                                     String info = client.receberMensagem();
                                                     System.out.println("Servidor: " + info);
                                                     break;
@@ -264,11 +265,11 @@ public class UtilizadorController {
                                                         System.out.println("Email inválido!");
                                                         break;
                                                     }
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<update> " + "<" + nome + "," + email + "," + password_alterar + "," + telefone + "," + morada + "," + nif + ">;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<update> " + "<" + nome + "," + email + "," + password_alterar + "," + telefone + "," + morada + "," + nif + ">;");
                                                     String resposta_update = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_update);
                                                     if (resposta_update.contains("<ok>")) {
-                                                        client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                        client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<ack>;");
                                                         String resposta_ack = client.receberMensagem();
                                                         System.out.println("Servidor: " + resposta_ack);
                                                     } else {
@@ -294,11 +295,11 @@ public class UtilizadorController {
                                                         System.out.println("Preencha todos os campos!");
                                                         break;
                                                     }
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<inserir> " + "<equipamento> " + "<" + marca + "," + modelo + "," + sector_comercial + "," + potencia + "," + amaperagem + "," + numero_modelo + ">");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<inserir> " + "<equipamento> " + "<" + marca + "," + modelo + "," + sector_comercial + "," + potencia + "," + amaperagem + "," + numero_modelo + ">");
                                                     String inserir_equip_resposta = client.receberMensagem();
                                                     System.out.println("Servidor: " + inserir_equip_resposta);
                                                     if (inserir_equip_resposta.contains("<ok>")) {
-                                                        client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                        client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<ack>;");
                                                         String resposta_ack = client.receberMensagem();
                                                         System.out.println("Servidor: " + resposta_ack);
                                                     } else {
@@ -308,26 +309,26 @@ public class UtilizadorController {
                                                 case 5:
                                                     System.out.println("DIGITE O CÓDIGO_SKU DO EQUIPAMENTO: ");
                                                     String sku_equipamento = scanner.nextLine();
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<pesquisa> " + "<equipamento> " + "<" + sku_equipamento + ">;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<pesquisa> " + "<equipamento> " + "<" + sku_equipamento + ">;");
                                                     String resposta_equipamento = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_equipamento);
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<ack>;");
                                                     String resposta_ack_equipamento = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_ack_equipamento);
                                                     break;
 
                                                 case 6:
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<listar> <equipamento>");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<listar> <equipamento>");
                                                     System.out.println("==========LISTA DOS MEUS EQUIPAMENTOS==========");
                                                     String listar_equipamento = client.receberMensagem();
                                                     System.out.println("Servidor: " + listar_equipamento);
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<ack>;");
                                                     String resposta_ack_listar = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_ack_listar);
                                                     break;
 
                                                 case 7:
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<listar> <certificacao>");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<listar> <certificacao>");
                                                     System.out.println("==========LISTA DOS MEUS PEDIDOS DE CERTIFICAÇÃO==========");
                                                     System.out.println("Formato : <id_certificacao, id_equipamento, id_tecnico, id_fabricante, data_realizacao, tempo_decorrido, custo, estado, numero_certificacao, numero_licenca>");
                                                     String listar_certificacao = "";
@@ -335,25 +336,25 @@ public class UtilizadorController {
                                                         listar_certificacao = client.receberMensagem();
                                                         System.out.println("Servidor: " + listar_certificacao);
                                                     }
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<ack>;");
                                                     String resposta_ack_listar_certificacao = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_ack_listar_certificacao);
                                                     break;
                                                 case 8:
                                                     System.out.println("DIGITE O NÚMERO DA CERTIFICAÇÃO: ");
                                                     int numero_certificacao = scanner.nextInt();
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<pesquisa> <certificacao> " + "<" + numero_certificacao + ">;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<pesquisa> <certificacao> " + "<" + numero_certificacao + ">;");
                                                     System.out.println("==========INFO DA CERTIFICAÇÃO==========");
                                                     String resposta_certificacao = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_certificacao);
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<ack>;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<ack>;");
                                                     String resposta_ack_certificacao = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_ack_certificacao);
 
                                                     break;
                                                 case 0:
                                                     System.out.println("A sair...");
-                                                    client.enviarMensagem("<" + utilizador.getUsername() + "> " + "<bye>;");
+                                                    client.enviarMensagem("<" + fabricante.getUsername() + "> " + "<bye>;");
                                                     String resposta_bye = client.receberMensagem();
                                                     System.out.println("Servidor: " + resposta_bye);
                                                     client.fechar();

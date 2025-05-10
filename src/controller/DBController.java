@@ -111,7 +111,7 @@ public class DBController {
 
     /**
      * Função para validar o login do utilizador através do username e password. Verifica se existe alguem na base de dados com os dados inseridos. Se existir
-     * Devolve um objeto utilizador com os dados do utilizador.
+     * Devolve um objeto "utilizador" com os dados do utilizador.
      * @param username
      * @param password
      * @return
@@ -149,7 +149,13 @@ public class DBController {
         }
     }
 
-    public Utilizador loginUtilizadorFabricanteClient(String username, String password) {
+    /**
+     * Função para validar o login do utilizador através do username e password. Verifica se existe alguem na base de dados com os dados inseridos. Se existir
+     * @param username
+     * @param password
+     * @return
+     */
+    public Fabricante loginUtilizadorFabricanteClient(String username, String password) {
         String sql = "SELECT * FROM utilizadores WHERE username = ? AND password = ?";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
