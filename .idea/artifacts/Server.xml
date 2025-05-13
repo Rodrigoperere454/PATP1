@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Server">
+    <output-path>$PROJECT_DIR$/out/artifacts/Server</output-path>
+    <root id="archive" name="ProjectsPA.jar">
+      <element id="module-output" name="ProjectsPA" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/Licenciatura 2ºAno/2ºSemestre/Programação Aplicada/LEI_PA_2025_AP1_Rodrigo-Pereira_2025-03-29/Drivers/postgresql-42.7.5.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
