@@ -1,5 +1,7 @@
 import controller.DBconfig;
 import controller.UtilizadorController;
+import view.InicialMenu;
+import view.Panel_test;
 
 import java.sql.Connection;
 
@@ -10,6 +12,14 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) throws Exception {
+
+        InicialMenu menuInicial = new InicialMenu();
+        menuInicial.add(new Panel_test());
+        menuInicial.setSize(400, 400);
+        menuInicial.setVisible(true);
+        //Repaint();
+        //revalidate();
+        //JDialog
 
         Connection connection = null;
 
