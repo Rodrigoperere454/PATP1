@@ -1,11 +1,8 @@
 import controller.DBconfig;
 import controller.UtilizadorController;
-import view.InicialMneu;
-import view.InicialMenuPanel;
-import view.InicialMneu;
+import view.InicialMenu;
 
 import java.sql.Connection;
-import javax.swing.JFrame;
 
 public class Main {
     /**
@@ -13,12 +10,10 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        InicialMneu menuInicial = new InicialMneu();
-        menuInicial.add(new InicialMenuPanel());
+        InicialMenu menuInicial = new InicialMenu();
+        //menuInicial.add(new InicialMenuPanel());
         menuInicial.setSize(400, 400);
         menuInicial.setVisible(true);
-
-
         //Repaint();
         //revalidate();
         //JDialog
