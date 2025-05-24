@@ -51,9 +51,7 @@ public class InicialMenuFrame extends JFrame implements ActionListener {
 
     }
 
-
     public void actionPerformed(ActionEvent e){
-        System.out.println("Evento acionado:");
         if (e.getSource() == botao1) {
             LoginDialog loginDialog = new LoginDialog(this);
             loginDialog.setVisible(true);
