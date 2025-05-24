@@ -19,7 +19,7 @@ public class InicialMenuFrame extends JFrame implements ActionListener {
 
         JLabel titulo = new JLabel("Menu Principal");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titulo.setFont(new Font("Arial", Font.BOLD, 24));
+        titulo.setFont(new Font("Arial", Font.BOLD, 20));
         cont.add(titulo);
         cont.add(Box.createRigidArea(new Dimension(0, 30)));
 

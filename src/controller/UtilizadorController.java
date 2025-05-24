@@ -393,4 +393,3 @@ public class UtilizadorController {
         scanner.close();
     }
 }
-
