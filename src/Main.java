@@ -1,6 +1,6 @@
 import controller.DBconfig;
 import controller.UtilizadorController;
-import view.InicialMenu;
+import view.InicialMenuFrame;
 
 import java.sql.Connection;
 
@@ -10,7 +10,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        InicialMenu menuInicial = new InicialMenu();
+        InicialMenuFrame menuInicial = new InicialMenuFrame();
         //menuInicial.add(new InicialMenuPanel());
         menuInicial.setSize(400, 400);
         menuInicial.setVisible(true);

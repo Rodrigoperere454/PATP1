@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InicialMenu extends JFrame implements ActionListener {
+public class InicialMenuFrame extends JFrame implements ActionListener {
     private Container cont;
     private JButton botao1, botao2, botao3;
     private int width = getWidth();
     private int height = getHeight();
 
-    public InicialMenu(){
+    public InicialMenuFrame(){
         setTitle("Menu Inicial");
         cont = getContentPane();
         cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
